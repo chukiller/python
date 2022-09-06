@@ -14,5 +14,5 @@ for it in divs:
     orgName = it.xpath('./div/a/div[2]/div[1]/div/text()')[0]
     score = it.xpath('./div/a/div[2]/div[2]/span/text()')[0]
     title = it.xpath('./div/div[3]/a/text()')[0]
-    monny = it.xpath('./div/div[3]/div/span/text()')[0]
-    print(orgName + '\t' + title + '\t' + monny + '\t' + score)
+    money = it.xpath('./div/div[3]/div/span/text()')[0]
+    print(orgName + '\t' + title + '\t' + money + '\t' + score)
