@@ -1,4 +1,4 @@
-# Scrapy settings for demo1 project
+# Scrapy settings for duanziwang project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'demo1'
+BOT_NAME = 'duanziwang'
 
-SPIDER_MODULES = ['demo1.spiders']
-NEWSPIDER_MODULE = 'demo1.spiders'
+SPIDER_MODULES = ['duanziwang.spiders']
+NEWSPIDER_MODULE = 'duanziwang.spiders'
 
 LOG_LEVEL = 'ERROR'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+#USER_AGENT = 'duanziwang (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'demo1.middlewares.Demo1SpiderMiddleware': 543,
+#    'duanziwang.middlewares.DuanziwangSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'demo1.middlewares.Demo1DownloaderMiddleware': 543,
+#    'duanziwang.middlewares.DuanziwangDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -62,9 +62,11 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'demo1.pipelines.Demo1Pipeline': 300,
-#}
+
+# 300 表示管道类的优先级
+ITEM_PIPELINES = {
+   'duanziwang.pipelines.DuanziwangPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
