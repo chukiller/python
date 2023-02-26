@@ -66,6 +66,8 @@ ROBOTSTXT_OBEY = True
 # 300 表示管道类的优先级
 ITEM_PIPELINES = {
    'duanziwang.pipelines.DuanziwangPipeline': 300,
+   # 'duanziwang.pipelines.MysqlPipeline': 301,
+   'duanziwang.pipelines.RedisPipeline': 302,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

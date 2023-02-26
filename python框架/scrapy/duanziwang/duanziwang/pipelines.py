@@ -5,9 +5,8 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
-
 import pymysql
+from redis import Redis
 
 class DuanziwangPipeline:
 
@@ -26,14 +25,44 @@ class DuanziwangPipeline:
         self.fp.write(str(item['title']) + "," + str(item['author']) + ',' + str(item['content']) + '\n')
         return item
 
-
+# 数据写入MySQL
 class MysqlPipeline:
+
+    conn = None
+    cursor = None
+
+    def open_spider(self, spider):
+        self.conn = pymysql.Connect(host='120.24.63.190', port=3306, user='root', password='Chu@mysql123', db='scrapy', charset='utf8')
+        print('链接数据库', self.conn)
+
+    def close_spider(self, spider):
+        self.cursor.close()
+        self.conn.close()
+        print('关闭数据库链接')
+
+    def process_item(self, item, spider):
+        self.cursor = self.conn.cursor()
+        sql = 'insert into t_article values("%s", "%s", "%s")' % (item['title'], item['author'], item['content'])
+        # 事务处理
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
+        return item
+
+
+# 数据写入Redis
+class RedisPipeline:
 
     conn = None
 
     def open_spider(self, spider):
-        self.conn = pymysql.Connect(host='120.24.63.190', port=3306, user='root', password='Chu@mysql123', db='scrapy', charset='utf-8')
-        print(self.conn)
+        self.conn = Redis(host='127.0.0.1', port=6379)
+        print('链接Redis', self.conn)
 
     def process_item(self, item, spider):
-        pass
+        self.conn.lpush('duanziData', item)
+        return item
+
